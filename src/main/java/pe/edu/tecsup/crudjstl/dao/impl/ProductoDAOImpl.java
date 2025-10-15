@@ -90,7 +90,7 @@ public class ProductoDAOImpl implements IProductoDAO {
     }
 
     @Override
-    public boolean actualizar(Producto producto) {
+    public void actualizar(Producto producto) {
         String sql = "UPDATE producto SET nombre = ?, descripcion = ?, precio = ?, " +
                 "stock = ?, categoria_id = ? WHERE id = ?";
 
@@ -103,10 +103,10 @@ public class ProductoDAOImpl implements IProductoDAO {
             ps.setInt(4, producto.getStock());
             ps.setInt(5, producto.getCategoriaId());
             ps.setInt(6, producto.getId());
-            return ps.executeUpdate() > 0;
+
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -124,4 +124,6 @@ public class ProductoDAOImpl implements IProductoDAO {
             return false;
         }
     }
+
+
 }

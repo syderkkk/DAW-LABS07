@@ -27,7 +27,7 @@
                             <input type="hidden" name="id" value="${categoria.id}">
                         </c:if>
                         <c:if test="${categoria == null}">
-                            <input type="hidden" name="action" value="insertar">
+                            <input type="hidden" name="action" value="guardar">
                         </c:if>
 
                         <div class="mb-3">

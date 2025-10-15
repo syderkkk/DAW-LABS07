@@ -8,6 +8,6 @@ public interface IProductoDAO {
     List<Producto> listar();
     Producto obtenerPorId(int id);
     boolean agregar(Producto producto);
-    boolean actualizar(Producto producto);
+    void actualizar(Producto producto);
     boolean eliminar(int id);
 }

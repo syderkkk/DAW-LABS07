@@ -27,7 +27,7 @@
                             <input type="hidden" name="id" value="${producto.id}">
                         </c:if>
                         <c:if test="${producto == null}">
-                            <input type="hidden" name="action" value="insertar">
+                            <input type="hidden" name="action" value="guardar">
                         </c:if>
 
                         <div class="mb-3">
@@ -87,10 +87,10 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="categoria_id" class="form-label fw-bold">
+                            <label for="categoriaId" class="form-label fw-bold">
                                 <i class="bi bi-tags"></i> Categoría *
                             </label>
-                            <select class="form-select" id="categoria_id" name="categoria_id" required>
+                            <select class="form-select" id="categoriaId" name="categoriaId" required>
                                 <option value="">Seleccione una categoría</option>
                                 <c:forEach var="categoria" items="${listaCategorias}">
                                     <option value="${categoria.id}"

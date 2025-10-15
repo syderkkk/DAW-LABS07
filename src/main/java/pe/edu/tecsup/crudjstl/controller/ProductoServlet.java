@@ -114,28 +114,44 @@ public class ProductoServlet extends HttpServlet {
 
     private void actualizarProducto(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String nombre = request.getParameter("nombre");
-        String descripcion = request.getParameter("descripcion");
-        double precio = Double.parseDouble(request.getParameter("precio"));
-        int stock = Integer.parseInt(request.getParameter("stock"));
-        int categoriaId = Integer.parseInt(request.getParameter("categoriaId"));
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String nombre = request.getParameter("nombre");
+            String descripcion = request.getParameter("descripcion");
 
-        Producto producto = new Producto();
-        producto.setId(id);
-        producto.setNombre(nombre);
-        producto.setDescripcion(descripcion);
-        producto.setPrecio(precio);
-        producto.setStock(stock);
-        producto.setCategoriaId(categoriaId);
+            // Validar y convertir precio
+            String precioStr = request.getParameter("precio");
+            double precio = 0.0;
+            if (precioStr != null && !precioStr.trim().isEmpty()) {
+                precio = Double.parseDouble(precioStr);
+            }
 
-        if (productoDAO.actualizar(producto)) {
-            request.setAttribute("mensaje", "Producto actualizado exitosamente");
-        } else {
-            request.setAttribute("error", "Error al actualizar el producto");
+            // Validar y convertir stock
+            String stockStr = request.getParameter("stock");
+            int stock = 0;
+            if (stockStr != null && !stockStr.trim().isEmpty()) {
+                stock = Integer.parseInt(stockStr);
+            }
+
+            // Validar y convertir categoria_id
+            String categoriaIdStr = request.getParameter("categoria_id");
+            int categoriaId = 0;
+            if (categoriaIdStr != null && !categoriaIdStr.trim().isEmpty()) {
+                categoriaId = Integer.parseInt(categoriaIdStr);
+            }
+
+            Producto producto = new Producto(id, nombre, descripcion, precio, stock, categoriaId);
+            productoDAO.actualizar(producto);
+
+            response.sendRedirect("producto?action=listar&mensaje=Producto actualizado exitosamente");
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Error en el formato de los datos numéricos");
+            listarProductos(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al actualizar producto: " + e.getMessage());
+            listarProductos(request, response);
         }
-
-        listarProductos(request, response);
     }
 
     private void eliminarProducto(HttpServletRequest request, HttpServletResponse response)

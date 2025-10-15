@@ -134,7 +134,7 @@ public class ProductoServlet extends HttpServlet {
             }
 
             // Validar y convertir categoria_id
-            String categoriaIdStr = request.getParameter("categoria_id");
+            String categoriaIdStr = request.getParameter("categoriaId");
             int categoriaId = 0;
             if (categoriaIdStr != null && !categoriaIdStr.trim().isEmpty()) {
                 categoriaId = Integer.parseInt(categoriaIdStr);
